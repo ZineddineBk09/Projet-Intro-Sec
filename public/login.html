@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+  </head>
+  <body>
+    <div
+      class="w-screen h-screen bg-slate-700 flex items-center justify-center"
+    >
+      <form
+        class="w-[60vw] h-[80vh] bg-slate-900 shadow-lg shadow-slate-900 rounded-lg flex items-center justify-center flex-col"
+        id="login-form"
+      >
+        <h1 class="w-full mt-4 text-3xl text-center text-white font-bold">
+          Login
+        </h1>
+        <div class="w-full mt-10 flex flex-col items-center justify-center">
+          <div class="flex items-center w-[80%] my-6">
+            <label class="text-white mr-2 w-24" for="email">Email:</label>
+            <input
+              name="email"
+              id="email"
+              type="email"
+              placeholder="email"
+              class="w-full h-12 ml-2 px-4 rounded-lg bg-slate-800 text-white border-none outline-none"
+            />
+          </div>
+          <div class="flex items-center w-[80%] my-6">
+            <label class="text-white mr-2 w-24" for="password">Password:</label>
+            <input
+              name="password"
+              id="password"
+              type="password"
+              placeholder="password"
+              class="w-full h-12 ml-2 px-4 rounded-lg bg-slate-800 text-white border-none outline-none"
+            />
+          </div>
+        </div>
+        <button
+          type="submit"
+          class="w-96 h-14 mt-10 bg-slate-700 rounded-lg text-white font-bold"
+        >
+          Login
+        </button>
+      </form>
+    </div>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- script to validate the form and send the inputs of the user to the backend -->
+    <script>
+      const form = document.getElementById('login-form')
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault()
+        const email = document.getElementById('email').value
+        const password = document.getElementById('password').value
+
+        if (email == '' || password == '') {
+          alert('Please fill in all the fields')
+        } else {
+          const data = {
+            email,
+            password,
+          }
+          fetch('http://localhost:3000/api/login', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.status === 200) {
+                console.log(data)
+                //window.location.href = '/STEP-3'
+              } else {
+                alert('Invalid email or password')
+              }
+            })
+            .catch((err) => {
+              alert('Invalid email or password')
+            })
+        }
+      })
+    </script>
+  </body>
+</html>
