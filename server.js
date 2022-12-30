@@ -33,20 +33,24 @@ app.post('/api/login', (req, res) => {
   if (data.email && data.password) {
     // write first sql query that let sql injection
     let sql = `SELECT * FROM USERS WHERE email = '${data.email}' AND password = '${data.password}'`
-
-    // to exploit sql injection we can enter this in the form
-    // email: ' OR 1=1 --
-    // password: ' OR 1=1 --
-
+    let sql_ = `SELECT * FROM USERS WHERE email = ? AND password = ?`
     console.log('sql', sql)
-    let query = conn.query(sql, [data.email, data.password], (err, result) => {
-      console.log('result query', result)
-      if (err) {
-        console.log(err)
-        res.send(JSON.stringify({ status: 500, error: err, response: null }))
-      }
-      res.send(JSON.stringify({ status: 200, error: null, response: result }))
-    })
+    try {
+      let query = conn.query(sql, [data.password], (err, result) => {
+        console.log('result query', result)
+        if (err) {
+          // avoid server crash
+          return res.send(
+            JSON.stringify({ status: 500, error: err, response: null })
+          )
+
+        }
+        res.send(JSON.stringify({ status: 200, error: null, response: result }))
+      })
+    } catch (err) {
+      console.log('-----------------------------2-----------------------')
+      console.log(err)
+    }
   }
 })
 

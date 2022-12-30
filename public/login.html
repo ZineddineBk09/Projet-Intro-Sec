@@ -77,11 +77,11 @@
                 console.log(data)
                 //window.location.href = '/STEP-3'
               } else {
-                alert('Invalid email or password')
+                console.log('error: ', data)
               }
             })
             .catch((err) => {
-              alert('Invalid email or password')
+              console.log(err)
             })
         }
       })
