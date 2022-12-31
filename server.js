@@ -43,7 +43,41 @@ app.post('/api/login', (req, res) => {
           return res.send(
             JSON.stringify({ status: 500, error: err, response: null })
           )
+        }
+        res.send(JSON.stringify({ status: 200, error: null, response: result }))
+      })
+    } catch (err) {
+      console.log('-----------------------------2-----------------------')
+      console.log(err)
+    }
+  }
+})
 
+// get comments
+app.get('/api/comment/getComments', (req, res) => {
+  let sql = 'SELECT * FROM comments'
+  let query = conn.query(sql, (err, results) => {
+    if (err) throw err
+    res.send(JSON.stringify({ status: 200, error: null, response: results }))
+  })
+})
+
+// create comment
+app.post('/api/comment/createComment', (req, res) => {
+  let data = { comment: req.body.comment }
+  console.log('Request Body: ', req.body)
+
+  if (data.comment) {
+    // write first sql query that let sql injection
+    let sql = `INSERT INTO comments (comment) VALUES (?)`
+    try {
+      let query = conn.query(sql, [data.comment], (err, result) => {
+        console.log('result query', result)
+        if (err) {
+          // avoid server crash
+          return res.send(
+            JSON.stringify({ status: 500, error: err, response: null })
+          )
         }
         res.send(JSON.stringify({ status: 200, error: null, response: result }))
       })
@@ -71,6 +105,12 @@ app.get('/invitation', (req, res) => {
 // login page
 app.get('/login', (req, res) => {
   res.sendFile(__dirname + '/public/login.html')
+})
+
+// xss page
+// login page
+app.get('/xss', (req, res) => {
+  res.sendFile(__dirname + '/public/xss.html')
 })
 
 // start server
