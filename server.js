@@ -97,8 +97,6 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/index.html')
 })
 
-
-
 // login page
 app.get('/login', (req, res) => {
   res.sendFile(__dirname + '/public/login.html')
