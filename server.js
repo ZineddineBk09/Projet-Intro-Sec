@@ -81,7 +81,6 @@ app.post('/api/comment/createComment', (req, res) => {
         res.send(JSON.stringify({ status: 200, error: null, response: result }))
       })
     } catch (err) {
-      console.log('-----------------------------2-----------------------')
       console.log(err)
     }
   }
