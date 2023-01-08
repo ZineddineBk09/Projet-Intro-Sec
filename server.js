@@ -102,11 +102,6 @@ app.get('/login', (req, res) => {
   res.sendFile(__dirname + '/public/login.html')
 })
 
-// xss page
-// login page
-app.get('/xss', (req, res) => {
-  res.sendFile(__dirname + '/public/xss.html')
-})
 
 // start server
 app.listen(3000, () => {
