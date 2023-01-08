@@ -97,10 +97,7 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/index.html')
 })
 
-// invitation page
-app.get('/invitation', (req, res) => {
-  res.sendFile(__dirname + '/public/invitation.html')
-})
+
 
 // login page
 app.get('/login', (req, res) => {
