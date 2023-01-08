@@ -6,7 +6,7 @@ const mysql = require('mysql')
 const cors = require('cors')
 require('dotenv').config()
 
-// parse application/json
+// parse application/json & cors
 app.use(bodyParser.json())
 app.use(cors())
 
