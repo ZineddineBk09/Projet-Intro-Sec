@@ -24,7 +24,7 @@ conn.connect((err) => {
   console.log('Mysql Connected...')
 })
 
-// API
+// --------------------------------API--------------------------------
 // login
 app.post('/api/login', (req, res) => {
   let data = { email: req.body.email, password: req.body.password }
@@ -91,7 +91,7 @@ app.post('/api/comment/createComment', (req, res) => {
 // serve static files
 app.use(express.static('public'))
 
-// PAGES
+// --------------------------------PAGES--------------------------------
 // index page
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/index.html')
